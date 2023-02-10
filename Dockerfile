@@ -12,6 +12,7 @@ FROM golang:1.16-alpine AS run
 WORKDIR /app
 
 COPY --from=build /csa-server /csa-server
+COPY .env .env
 
 EXPOSE 3000
 
