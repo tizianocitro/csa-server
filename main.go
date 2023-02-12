@@ -8,6 +8,8 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+
 	"github.com/tizianocitro/csa-server/config"
 	"github.com/tizianocitro/csa-server/route"
 )
@@ -34,6 +36,7 @@ func main() {
 	gob.Register(map[string]interface{}{})
 
 	app := fiber.New()
+	app.Use(cors.New())
 	route.UseRoutes(app)
 	config.Shutdown(app)
 
