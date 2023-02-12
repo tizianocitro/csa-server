@@ -1,2 +1,2 @@
 # csa-server
-A sample server to provide data to the csa-connect plugin.
+A server to provide data to the csa-connect plugin.
