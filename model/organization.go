@@ -1,8 +1,5 @@
 package model
 
-type organization struct {
-}
-
 type Organization struct {
 	ID          string `json:"id"`
 	Name        string `json:"name"`
