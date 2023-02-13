@@ -24,18 +24,18 @@ func GetStory(c *fiber.Ctx) error {
 var stories = []model.Story{
 	{
 		ID:          "0",
-		Name:        "sX",
-		Description: "X story",
+		Name:        "Story X",
+		Description: "Story X description",
 	},
 	{
 		ID:          "1",
-		Name:        "sY",
-		Description: "Y story",
+		Name:        "Story Y",
+		Description: "Story Y description",
 	},
 	{
 		ID:          "2",
-		Name:        "sZ",
-		Description: "Z story",
+		Name:        "Story Z",
+		Description: "Story Z description",
 	},
 }
 

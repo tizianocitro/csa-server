@@ -24,18 +24,18 @@ func GetIncident(c *fiber.Ctx) error {
 var incidents = []model.Incident{
 	{
 		ID:          "0",
-		Name:        "iX",
-		Description: "X incident",
+		Name:        "Incident X",
+		Description: "Incident X description",
 	},
 	{
 		ID:          "1",
-		Name:        "iY",
-		Description: "Y incident",
+		Name:        "Incident Y",
+		Description: "Incident Y description",
 	},
 	{
 		ID:          "2",
-		Name:        "iZ",
-		Description: "Z incident",
+		Name:        "Incident Z",
+		Description: "Incident Z description",
 	},
 }
 

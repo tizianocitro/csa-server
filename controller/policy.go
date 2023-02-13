@@ -24,18 +24,18 @@ func GetPolicy(c *fiber.Ctx) error {
 var policies = []model.Policy{
 	{
 		ID:          "0",
-		Name:        "pX",
-		Description: "X policy",
+		Name:        "Policy X",
+		Description: "Policy X description",
 	},
 	{
 		ID:          "1",
-		Name:        "pY",
-		Description: "Y policy",
+		Name:        "Policy Y",
+		Description: "Policy Y description",
 	},
 	{
 		ID:          "2",
-		Name:        "pZ",
-		Description: "Z policy",
+		Name:        "Policy Z",
+		Description: "Policy Z description",
 	},
 }
 
