@@ -8,7 +8,7 @@ import (
 )
 
 func GetIncidents(c *fiber.Ctx) error {
-	return c.JSON(tableData)
+	return c.JSON(incidentsTableData)
 }
 
 func GetIncident(c *fiber.Ctx) error {
@@ -39,7 +39,7 @@ var incidents = []model.Incident{
 	},
 }
 
-var tableData = model.TableData{
+var incidentsTableData = model.TableData{
 	Caption: "Incidents",
 	Headers: []model.TableHeader{
 		{

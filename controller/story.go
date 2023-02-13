@@ -8,7 +8,7 @@ import (
 )
 
 func GetStories(c *fiber.Ctx) error {
-	return c.JSON(stories)
+	return c.JSON(storiesTableData)
 }
 
 func GetStory(c *fiber.Ctx) error {
@@ -36,5 +36,63 @@ var stories = []model.Story{
 		ID:          "2",
 		Name:        "sZ",
 		Description: "Z story",
+	},
+}
+
+var storiesTableData = model.TableData{
+	Caption: "Stories",
+	Headers: []model.TableHeader{
+		{
+			Dim:  4,
+			Name: "Name",
+		},
+		{
+			Dim:  8,
+			Name: "Description",
+		},
+	},
+	Rows: []model.TableRow{
+		{
+			ID:   stories[0].ID,
+			Name: stories[0].Name,
+			Values: []model.TableValue{
+				{
+					Dim:   4,
+					Value: stories[0].Name,
+				},
+				{
+					Dim:   8,
+					Value: stories[0].Description,
+				},
+			},
+		},
+		{
+			ID:   stories[1].ID,
+			Name: stories[1].Name,
+			Values: []model.TableValue{
+				{
+					Dim:   4,
+					Value: stories[1].Name,
+				},
+				{
+					Dim:   8,
+					Value: stories[1].Description,
+				},
+			},
+		},
+		{
+			ID:   stories[2].ID,
+			Name: stories[2].Name,
+			Values: []model.TableValue{
+				{
+					Dim:   4,
+					Value: stories[2].Name,
+				},
+				{
+					Dim:   8,
+					Value: stories[2].Description,
+				},
+			},
+		},
 	},
 }
