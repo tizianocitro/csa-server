@@ -21,6 +21,10 @@ func GetStory(c *fiber.Ctx) error {
 	return c.JSON(story)
 }
 
+func GetStoryTable(c *fiber.Ctx) error {
+	return c.JSON(storiesTableData)
+}
+
 var stories = []model.Story{
 	{
 		ID:          "0",

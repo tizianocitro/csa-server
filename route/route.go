@@ -76,9 +76,14 @@ func useIncidents(app *fiber.App) {
 		log.Printf("/incidents called")
 		return controller.GetIncidents(c)
 	})
-	incidents.Get("/:incidentId", func(c *fiber.Ctx) error {
+	incidentsWithId := incidents.Group("/:incidentId")
+	incidentsWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("/incidents/:incidentId called")
 		return controller.GetIncident(c)
+	})
+	incidentsWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("/incidents/:incidentId/table called")
+		return controller.GetIncidentTable(c)
 	})
 }
 
@@ -88,9 +93,14 @@ func useStories(app *fiber.App) {
 		log.Printf("/stories called")
 		return controller.GetStories(c)
 	})
-	stories.Get("/:storyId", func(c *fiber.Ctx) error {
+	storiesWithId := stories.Group("/:storyId")
+	storiesWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("/stories/:storyId called")
 		return controller.GetStory(c)
+	})
+	storiesWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("/stories/:storyId/table called")
+		return controller.GetStoryTable(c)
 	})
 }
 
@@ -100,8 +110,13 @@ func usePolicies(app *fiber.App) {
 		log.Printf("/policies called")
 		return controller.GetPolicies(c)
 	})
-	policies.Get("/:policyId", func(c *fiber.Ctx) error {
+	policesWithId := policies.Group("/:policyId")
+	policesWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("/policies/:policyId called")
 		return controller.GetPolicy(c)
+	})
+	policesWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("/policies/:policyId/table called")
+		return controller.GetPolicyTable(c)
 	})
 }

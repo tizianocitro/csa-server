@@ -21,6 +21,10 @@ func GetIncident(c *fiber.Ctx) error {
 	return c.JSON(incident)
 }
 
+func GetIncidentTable(c *fiber.Ctx) error {
+	return c.JSON(incidentsTableData)
+}
+
 var incidents = []model.Incident{
 	{
 		ID:          "0",
