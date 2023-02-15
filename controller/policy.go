@@ -17,7 +17,7 @@ func GetPolicy(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Policy{})
 	}
-	policy := policies[index]
+	policy := policies[index%len(policies)]
 	return c.JSON(policy)
 }
 
@@ -31,8 +31,8 @@ func GetPolicyTextBox(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Policy{})
 	}
-	description := policies[index].Description
-	return c.JSON(description)
+	description := policies[index%len(policies)].Description
+	return c.JSON(fiber.Map{"text": description})
 }
 
 var policies = []model.Policy{

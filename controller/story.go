@@ -17,7 +17,7 @@ func GetStory(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Story{})
 	}
-	story := stories[index]
+	story := stories[index%len(stories)]
 	return c.JSON(story)
 }
 
@@ -31,8 +31,8 @@ func GetStoryTextBox(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Story{})
 	}
-	description := stories[index].Description
-	return c.JSON(description)
+	description := stories[index%len(stories)].Description
+	return c.JSON(fiber.Map{"text": description})
 }
 
 var stories = []model.Story{

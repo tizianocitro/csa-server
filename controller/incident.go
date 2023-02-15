@@ -17,7 +17,7 @@ func GetIncident(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Incident{})
 	}
-	incident := incidents[index]
+	incident := incidents[index%len(incidents)]
 	return c.JSON(incident)
 }
 
@@ -31,8 +31,8 @@ func GetIncidentTextBox(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Incident{})
 	}
-	description := incidents[index].Description
-	return c.JSON(description)
+	description := incidents[index%len(incidents)].Description
+	return c.JSON(fiber.Map{"text": description})
 }
 
 var incidents = []model.Incident{
