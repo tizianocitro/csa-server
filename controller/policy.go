@@ -25,6 +25,16 @@ func GetPolicyTable(c *fiber.Ctx) error {
 	return c.JSON(policiesTableData)
 }
 
+func GetPolicyTextBox(c *fiber.Ctx) error {
+	id := c.Params("policyId")
+	index, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(model.Policy{})
+	}
+	description := policies[index].Description
+	return c.JSON(description)
+}
+
 var policies = []model.Policy{
 	{
 		ID:          "0",

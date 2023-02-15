@@ -25,6 +25,16 @@ func GetIncidentTable(c *fiber.Ctx) error {
 	return c.JSON(incidentsTableData)
 }
 
+func GetIncidentTextBox(c *fiber.Ctx) error {
+	id := c.Params("incidentId")
+	index, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(model.Incident{})
+	}
+	description := incidents[index].Description
+	return c.JSON(description)
+}
+
 var incidents = []model.Incident{
 	{
 		ID:          "0",

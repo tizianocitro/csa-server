@@ -25,6 +25,16 @@ func GetStoryTable(c *fiber.Ctx) error {
 	return c.JSON(storiesTableData)
 }
 
+func GetStoryTextBox(c *fiber.Ctx) error {
+	id := c.Params("storyId")
+	index, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(model.Story{})
+	}
+	description := stories[index].Description
+	return c.JSON(description)
+}
+
 var stories = []model.Story{
 	{
 		ID:          "0",
