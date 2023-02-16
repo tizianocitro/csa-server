@@ -37,17 +37,17 @@ func GetStoryTextBox(c *fiber.Ctx) error {
 
 var stories = []model.Story{
 	{
-		ID:          "0",
+		ID:          "6",
 		Name:        "Story X",
 		Description: "Story X description",
 	},
 	{
-		ID:          "1",
+		ID:          "7",
 		Name:        "Story Y",
 		Description: "Story Y description",
 	},
 	{
-		ID:          "2",
+		ID:          "8",
 		Name:        "Story Z",
 		Description: "Story Z description",
 	},

@@ -37,17 +37,17 @@ func GetPolicyTextBox(c *fiber.Ctx) error {
 
 var policies = []model.Policy{
 	{
-		ID:          "0",
+		ID:          "3",
 		Name:        "Policy X",
 		Description: "Policy X description",
 	},
 	{
-		ID:          "1",
+		ID:          "4",
 		Name:        "Policy Y",
 		Description: "Policy Y description",
 	},
 	{
-		ID:          "2",
+		ID:          "5",
 		Name:        "Policy Z",
 		Description: "Policy Z description",
 	},
