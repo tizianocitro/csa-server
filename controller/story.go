@@ -21,6 +21,10 @@ func GetStory(c *fiber.Ctx) error {
 	return c.JSON(story)
 }
 
+func GetStoryGraph(c *fiber.Ctx) error {
+	return GetGraph(c)
+}
+
 func GetStoryTable(c *fiber.Ctx) error {
 	return c.JSON(storiesTableData)
 }

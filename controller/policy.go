@@ -21,6 +21,10 @@ func GetPolicy(c *fiber.Ctx) error {
 	return c.JSON(policy)
 }
 
+func GetPolicyGraph(c *fiber.Ctx) error {
+	return GetGraph(c)
+}
+
 func GetPolicyTable(c *fiber.Ctx) error {
 	return c.JSON(policiesTableData)
 }

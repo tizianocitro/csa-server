@@ -21,6 +21,10 @@ func GetIncident(c *fiber.Ctx) error {
 	return c.JSON(incident)
 }
 
+func GetIncidentGraph(c *fiber.Ctx) error {
+	return GetGraph(c)
+}
+
 func GetIncidentTable(c *fiber.Ctx) error {
 	return c.JSON(incidentsTableData)
 }

@@ -81,6 +81,10 @@ func useIncidents(app *fiber.App) {
 		log.Printf("/incidents/:incidentId called")
 		return controller.GetIncident(c)
 	})
+	incidentsWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("/incidents/:incidentId/graph called")
+		return controller.GetIncidentGraph(c)
+	})
 	incidentsWithId.Get("/table", func(c *fiber.Ctx) error {
 		log.Printf("/incidents/:incidentId/table called")
 		return controller.GetIncidentTable(c)
@@ -102,6 +106,10 @@ func useStories(app *fiber.App) {
 		log.Printf("/stories/:storyId called")
 		return controller.GetStory(c)
 	})
+	storiesWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("/stories/:storyId/graph called")
+		return controller.GetStoryGraph(c)
+	})
 	storiesWithId.Get("/table", func(c *fiber.Ctx) error {
 		log.Printf("/stories/:storyId/table called")
 		return controller.GetStoryTable(c)
@@ -122,6 +130,10 @@ func usePolicies(app *fiber.App) {
 	policesWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("/policies/:policyId called")
 		return controller.GetPolicy(c)
+	})
+	policesWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("/policies/:policyId/graph called")
+		return controller.GetPolicyGraph(c)
 	})
 	policesWithId.Get("/table", func(c *fiber.Ctx) error {
 		log.Printf("/policies/:policyId/table called")
