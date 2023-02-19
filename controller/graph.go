@@ -31,12 +31,27 @@ var graphData = model.GraphData{
 				Label: "Node 2",
 			},
 		},
+		{
+			ID: "n3",
+			Position: model.GraphNodePosition{
+				X: -100,
+				Y: 100,
+			},
+			Data: model.GraphNodeData{
+				Label: "Node 3",
+			},
+		},
 	},
 	Edges: []model.GraphEdge{
 		{
 			ID:     "n1-n2",
 			Source: "n1",
 			Target: "n2",
+		},
+		{
+			ID:     "n1-n3",
+			Source: "n1",
+			Target: "n3",
 		},
 	},
 }
