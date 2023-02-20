@@ -1,8 +1,9 @@
 package model
 
 type GraphData struct {
-	Edges []GraphEdge `json:"edges"`
-	Nodes []GraphNode `json:"nodes"`
+	Description GraphDescription `json:"description"`
+	Edges       []GraphEdge      `json:"edges"`
+	Nodes       []GraphNode      `json:"nodes"`
 }
 
 type GraphNodeData struct {
@@ -28,4 +29,9 @@ type GraphEdge struct {
 	Source string `json:"source"`
 	Target string `json:"target"`
 	Type   string `json:"type"`
+}
+
+type GraphDescription struct {
+	Name string `json:"name"`
+	Text string `json:"text"`
 }

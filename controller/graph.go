@@ -54,4 +54,8 @@ var graphData = model.GraphData{
 			Target: "n3",
 		},
 	},
+	Description: model.GraphDescription{
+		Name: "Graph Description",
+		Text: "This is the graph description",
+	},
 }
