@@ -29,6 +29,10 @@ func GetIncidentTable(c *fiber.Ctx) error {
 	return c.JSON(incidentsTableData)
 }
 
+func GetIncidentPaginatedTable(c *fiber.Ctx) error {
+	return c.JSON(incidentsPaginatedTableData)
+}
+
 func GetIncidentTextBox(c *fiber.Ctx) error {
 	id := c.Params("incidentId")
 	index, err := strconv.Atoi(id)
@@ -111,6 +115,34 @@ var incidentsTableData = model.TableData{
 					Value: incidents[2].Description,
 				},
 			},
+		},
+	},
+}
+
+var incidentsPaginatedTableData = model.PaginatedTableData{
+	Columns: []model.PaginatedTableColumn{
+		{
+			Title: "Name",
+		},
+		{
+			Title: "Description",
+		},
+	},
+	Rows: []model.PaginatedTableRow{
+		{
+			ID:          incidents[0].ID,
+			Name:        incidents[0].Name,
+			Description: incidents[0].Description,
+		},
+		{
+			ID:          incidents[1].ID,
+			Name:        incidents[1].Name,
+			Description: incidents[1].Description,
+		},
+		{
+			ID:          incidents[2].ID,
+			Name:        incidents[2].Name,
+			Description: incidents[2].Description,
 		},
 	},
 }

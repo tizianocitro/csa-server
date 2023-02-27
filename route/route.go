@@ -76,6 +76,10 @@ func useIncidents(app *fiber.App) {
 		log.Printf("/incidents called")
 		return controller.GetIncidents(c)
 	})
+	incidents.Get("/paginated_table", func(c *fiber.Ctx) error {
+		log.Printf("/incidents/paginated_table called")
+		return controller.GetIncidentPaginatedTable(c)
+	})
 	incidentsWithId := incidents.Group("/:incidentId")
 	incidentsWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("/incidents/:incidentId called")
