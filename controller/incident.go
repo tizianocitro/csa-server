@@ -8,7 +8,7 @@ import (
 )
 
 func GetIncidents(c *fiber.Ctx) error {
-	return c.JSON(incidentsTableData)
+	return c.JSON(incidentsPaginatedTableData)
 }
 
 func GetIncident(c *fiber.Ctx) error {
@@ -27,10 +27,6 @@ func GetIncidentGraph(c *fiber.Ctx) error {
 
 func GetIncidentTable(c *fiber.Ctx) error {
 	return c.JSON(incidentsTableData)
-}
-
-func GetIncidentPaginatedTable(c *fiber.Ctx) error {
-	return c.JSON(incidentsPaginatedTableData)
 }
 
 func GetIncidentTextBox(c *fiber.Ctx) error {

@@ -8,7 +8,7 @@ import (
 )
 
 func GetPolicies(c *fiber.Ctx) error {
-	return c.JSON(policiesTableData)
+	return c.JSON(policiesPaginatedTableData)
 }
 
 func GetPolicy(c *fiber.Ctx) error {
@@ -111,6 +111,34 @@ var policiesTableData = model.TableData{
 					Value: policies[2].Description,
 				},
 			},
+		},
+	},
+}
+
+var policiesPaginatedTableData = model.PaginatedTableData{
+	Columns: []model.PaginatedTableColumn{
+		{
+			Title: "Name",
+		},
+		{
+			Title: "Description",
+		},
+	},
+	Rows: []model.PaginatedTableRow{
+		{
+			ID:          policies[0].ID,
+			Name:        policies[0].Name,
+			Description: policies[0].Description,
+		},
+		{
+			ID:          policies[1].ID,
+			Name:        policies[1].Name,
+			Description: policies[1].Description,
+		},
+		{
+			ID:          policies[2].ID,
+			Name:        policies[2].Name,
+			Description: policies[2].Description,
 		},
 	},
 }

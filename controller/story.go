@@ -8,7 +8,7 @@ import (
 )
 
 func GetStories(c *fiber.Ctx) error {
-	return c.JSON(storiesTableData)
+	return c.JSON(storiesPaginatedTableData)
 }
 
 func GetStory(c *fiber.Ctx) error {
@@ -111,6 +111,34 @@ var storiesTableData = model.TableData{
 					Value: stories[2].Description,
 				},
 			},
+		},
+	},
+}
+
+var storiesPaginatedTableData = model.PaginatedTableData{
+	Columns: []model.PaginatedTableColumn{
+		{
+			Title: "Name",
+		},
+		{
+			Title: "Description",
+		},
+	},
+	Rows: []model.PaginatedTableRow{
+		{
+			ID:          stories[0].ID,
+			Name:        stories[0].Name,
+			Description: stories[0].Description,
+		},
+		{
+			ID:          stories[1].ID,
+			Name:        stories[1].Name,
+			Description: stories[1].Description,
+		},
+		{
+			ID:          stories[2].ID,
+			Name:        stories[2].Name,
+			Description: stories[2].Description,
 		},
 	},
 }
