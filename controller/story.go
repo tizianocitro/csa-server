@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"encoding/json"
 	"strconv"
+	"sync/atomic"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/tizianocitro/csa-server/model"
@@ -16,6 +18,11 @@ func GetStory(c *fiber.Ctx) error {
 	index, err := strconv.Atoi(id)
 	if err != nil {
 		return c.JSON(model.Story{})
+	}
+	for _, story := range stories {
+		if story.ID == id {
+			return c.JSON(story)
+		}
 	}
 	story := stories[index%len(stories)]
 	return c.JSON(story)
@@ -38,6 +45,36 @@ func GetStoryTextBox(c *fiber.Ctx) error {
 	description := stories[index%len(stories)].Description
 	return c.JSON(fiber.Map{"text": description})
 }
+
+func SaveStory(c *fiber.Ctx) error {
+	var story model.Story
+	err := json.Unmarshal(c.Body(), &story)
+	if err != nil {
+		return c.JSON(fiber.Map{
+			"error": "Not a valid story provided",
+		})
+	}
+	id := getNextID()
+	story.ID = strconv.Itoa(id)
+	stories = append(stories, story)
+	storiesPaginatedTableData.Rows = append(storiesPaginatedTableData.Rows, model.PaginatedTableRow{
+		ID:          stories[len(stories)-1].ID,
+		Name:        stories[len(stories)-1].Name,
+		Description: stories[len(stories)-1].Description,
+	})
+	return c.JSON(fiber.Map{
+		"id":   story.ID,
+		"name": story.Name,
+	})
+}
+
+func getNextID() int {
+	id := atomic.LoadInt32(&nextID)
+	atomic.AddInt32(&nextID, 1)
+	return int(id)
+}
+
+var nextID int32 = 12
 
 var stories = []model.Story{
 	{
