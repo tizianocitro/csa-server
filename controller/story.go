@@ -19,10 +19,8 @@ func GetStory(c *fiber.Ctx) error {
 	if err != nil {
 		return c.JSON(model.Story{})
 	}
-	for _, story := range stories {
-		if story.ID == id {
-			return c.JSON(story)
-		}
+	if story := getStoryByID(id); story != (model.Story{}) {
+		return c.JSON(story)
 	}
 	story := stories[index%len(stories)]
 	return c.JSON(story)
@@ -41,6 +39,9 @@ func GetStoryTextBox(c *fiber.Ctx) error {
 	index, err := strconv.Atoi(id)
 	if err != nil {
 		return c.JSON(model.Story{})
+	}
+	if story := getStoryByID(id); story != (model.Story{}) {
+		return c.JSON(fiber.Map{"text": story.Description})
 	}
 	description := stories[index%len(stories)].Description
 	return c.JSON(fiber.Map{"text": description})
@@ -66,6 +67,15 @@ func SaveStory(c *fiber.Ctx) error {
 		"id":   story.ID,
 		"name": story.Name,
 	})
+}
+
+func getStoryByID(id string) model.Story {
+	for _, story := range stories {
+		if story.ID == id {
+			return story
+		}
+	}
+	return model.Story{}
 }
 
 func getNextID() int {
