@@ -55,7 +55,7 @@ func SaveStory(c *fiber.Ctx) error {
 			"error": "Not a valid story provided",
 		})
 	}
-	id := getNextID()
+	id := getNextStoryID()
 	story.ID = strconv.Itoa(id)
 	stories = append(stories, story)
 	storiesPaginatedTableData.Rows = append(storiesPaginatedTableData.Rows, model.PaginatedTableRow{
@@ -78,13 +78,13 @@ func getStoryByID(id string) model.Story {
 	return model.Story{}
 }
 
-func getNextID() int {
-	id := atomic.LoadInt32(&nextID)
-	atomic.AddInt32(&nextID, 1)
+func getNextStoryID() int {
+	id := atomic.LoadInt32(&nextStoryID)
+	atomic.AddInt32(&nextStoryID, 1)
 	return int(id)
 }
 
-var nextID int32 = 12
+var nextStoryID int32 = 12
 
 var stories = []model.Story{
 	{
