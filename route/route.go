@@ -10,6 +10,7 @@ import (
 
 func UseRoutes(app *fiber.App) {
 	useOrganizations(app)
+	useEcosystem(app)
 	useIncidents(app)
 	useStories(app)
 	usePolicies(app)
@@ -67,6 +68,22 @@ func useOrganizationsPolicies(organizations fiber.Router) {
 	policies.Get("/:policyId", func(c *fiber.Ctx) error {
 		log.Printf("GET /:organizationId/policies/:policyId called")
 		return controller.GetPolicy(c)
+	})
+}
+
+func useEcosystem(app *fiber.App) {
+	ecosystem := app.Group("/issues")
+	ecosystem.Get("/", func(c *fiber.Ctx) error {
+		log.Printf("GET /issues called")
+		return controller.GetIssues(c)
+	})
+	ecosystem.Get("/:issueId", func(c *fiber.Ctx) error {
+		log.Printf("GET /issues/:issueId called")
+		return controller.GetIssue(c)
+	})
+	ecosystem.Post("/", func(c *fiber.Ctx) error {
+		log.Printf("POST /issues called")
+		return controller.SaveIssue(c)
 	})
 }
 
