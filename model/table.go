@@ -21,3 +21,10 @@ type TableValue struct {
 	Dim   int    `json:"dim"`
 	Value string `json:"value"`
 }
+
+type TableValuePlaceholder struct {
+	Name  string
+	Index int
+}
+
+var TableValueNameTemplate = "{{.Name}} Element {{.Index}}"
