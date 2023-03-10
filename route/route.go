@@ -41,9 +41,22 @@ func useOrganizationsIncidents(organizations fiber.Router) {
 		log.Printf("GET /:organizationId/incidents called")
 		return controller.GetIncidents(c)
 	})
-	incidents.Get("/:incidentId", func(c *fiber.Ctx) error {
+	incidentsWithId := incidents.Group("/:incidentId")
+	incidentsWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("GET /:organizationId/incidents/:incidentId called")
 		return controller.GetIncident(c)
+	})
+	incidentsWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/incidents/:incidentId/graph called")
+		return controller.GetIncidentGraph(c)
+	})
+	incidentsWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/incidents/:incidentId/table called")
+		return controller.GetIncidentTable(c)
+	})
+	incidentsWithId.Get("/text_box", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/incidents/:incidentId/text_box called")
+		return controller.GetIncidentTextBox(c)
 	})
 }
 
@@ -53,9 +66,26 @@ func useOrganizationsStories(organizations fiber.Router) {
 		log.Printf("GET /:organizationId/stories called")
 		return controller.GetStories(c)
 	})
-	stories.Get("/:storyId", func(c *fiber.Ctx) error {
+	stories.Post("/", func(c *fiber.Ctx) error {
+		log.Printf("POST /:organizationId/stories called")
+		return controller.SaveStory(c)
+	})
+	storiesWithId := stories.Group("/:storyId")
+	storiesWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("GET /:organizationId/stories/:storyId called")
 		return controller.GetStory(c)
+	})
+	storiesWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/stories/:storyId/graph called")
+		return controller.GetStoryGraph(c)
+	})
+	storiesWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/stories/:storyId/table called")
+		return controller.GetStoryTable(c)
+	})
+	storiesWithId.Get("/text_box", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/stories/:storyId/text_box called")
+		return controller.GetStoryTextBox(c)
 	})
 }
 
@@ -65,9 +95,22 @@ func useOrganizationsPolicies(organizations fiber.Router) {
 		log.Printf("GET /:organizationId/policies called")
 		return controller.GetPolicies(c)
 	})
-	policies.Get("/:policyId", func(c *fiber.Ctx) error {
+	policiesWithId := policies.Group("/:policyId")
+	policiesWithId.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("GET /:organizationId/policies/:policyId called")
 		return controller.GetPolicy(c)
+	})
+	policiesWithId.Get("/graph", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/policies/:policyId/graph called")
+		return controller.GetPolicyGraph(c)
+	})
+	policiesWithId.Get("/table", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/policies/:policyId/table called")
+		return controller.GetPolicyTable(c)
+	})
+	policiesWithId.Get("/text_box", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/policies/:policyId/text_box called")
+		return controller.GetPolicyTextBox(c)
 	})
 }
 
