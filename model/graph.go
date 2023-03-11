@@ -8,6 +8,7 @@ type GraphData struct {
 
 type GraphNodeData struct {
 	IsUrlHashed bool   `json:"isUrlHashed"`
+	Kind        string `json:"kind"`
 	Label       string `json:"label"`
 	URL         string `json:"url"`
 }
@@ -35,3 +36,9 @@ type GraphDescription struct {
 	Name string `json:"name"`
 	Text string `json:"text"`
 }
+
+const (
+	Switch    string = "switch"
+	Server    string = "server"
+	VpnServer string = "vpn-server"
+)

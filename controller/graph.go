@@ -6,56 +6,180 @@ import (
 )
 
 func GetGraph(c *fiber.Ctx) error {
-	return c.JSON(graphData)
+	organizationId := c.Params("organizationId")
+	return c.JSON(graphMap[organizationId])
 }
 
-var graphData = model.GraphData{
-	Nodes: []model.GraphNode{
-		{
-			ID: "n1",
-			Position: model.GraphNodePosition{
-				X: 0,
-				Y: 0,
+var graphMap = map[string]model.GraphData{
+	"1": {
+		Nodes: []model.GraphNode{
+			{
+				ID: "main-switch",
+				Position: model.GraphNodePosition{
+					X: 0,
+					Y: 0,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Switch,
+					Label: "Main-Switch",
+				},
 			},
-			Data: model.GraphNodeData{
-				Label: "Node 1",
+			{
+				ID: "server-1",
+				Position: model.GraphNodePosition{
+					X: 200,
+					Y: -100,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Server,
+					Label: "Server-1",
+				},
+			},
+			{
+				ID: "vpn-x",
+				Position: model.GraphNodePosition{
+					X: 200,
+					Y: 100,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.VpnServer,
+					Label: "VPN-X",
+				},
+			},
+			{
+				ID: "internet",
+				Position: model.GraphNodePosition{
+					X: 350,
+					Y: 100,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Server,
+					Label: "Internet",
+				},
 			},
 		},
-		{
-			ID: "n2",
-			Position: model.GraphNodePosition{
-				X: 100,
-				Y: 100,
+		Edges: []model.GraphEdge{
+			{
+				ID:     "main-switch-server-1",
+				Source: "main-switch",
+				Target: "server-1",
 			},
-			Data: model.GraphNodeData{
-				Label: "Node 2",
+			{
+				ID:     "main-switch-vpn-x",
+				Source: "main-switch",
+				Target: "vpn-x",
 			},
-		},
-		{
-			ID: "n3",
-			Position: model.GraphNodePosition{
-				X: -100,
-				Y: 100,
-			},
-			Data: model.GraphNodeData{
-				Label: "Node 3",
+			{
+				ID:     "vpn-x-internet",
+				Source: "vpn-x",
+				Target: "internet",
 			},
 		},
+		Description: graphDescription,
 	},
-	Edges: []model.GraphEdge{
-		{
-			ID:     "n1-n2",
-			Source: "n1",
-			Target: "n2",
+	"2": {
+		Nodes: []model.GraphNode{
+			{
+				ID: "main-switch",
+				Position: model.GraphNodePosition{
+					X: 0,
+					Y: 0,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Switch,
+					Label: "Main-Switch",
+				},
+			},
+			{
+				ID: "server-1",
+				Position: model.GraphNodePosition{
+					X: 200,
+					Y: -100,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Server,
+					Label: "Server 1",
+				},
+			},
+			{
+				ID: "server-2",
+				Position: model.GraphNodePosition{
+					X: 200,
+					Y: 100,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Server,
+					Label: "Server 2",
+				},
+			},
 		},
-		{
-			ID:     "n1-n3",
-			Source: "n1",
-			Target: "n3",
+		Edges: []model.GraphEdge{
+			{
+				ID:     "main-switch-server-1",
+				Source: "main-switch",
+				Target: "server-1",
+			},
+			{
+				ID:     "main-switch-server-2",
+				Source: "main-switch",
+				Target: "server-2",
+			},
 		},
+		Description: graphDescription,
 	},
-	Description: model.GraphDescription{
-		Name: "Graph Description",
-		Text: "This is the graph description",
+	"3": {
+		Nodes: []model.GraphNode{
+			{
+				ID: "main-switch",
+				Position: model.GraphNodePosition{
+					X: 0,
+					Y: 0,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Switch,
+					Label: "Main-Switch",
+				},
+			},
+			{
+				ID: "vpn-x",
+				Position: model.GraphNodePosition{
+					X: 200,
+					Y: 0,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.VpnServer,
+					Label: "VPN-X",
+				},
+			},
+			{
+				ID: "server-1",
+				Position: model.GraphNodePosition{
+					X: 350,
+					Y: 0,
+				},
+				Data: model.GraphNodeData{
+					Kind:  model.Server,
+					Label: "Server 1",
+				},
+			},
+		},
+		Edges: []model.GraphEdge{
+			{
+				ID:     "main-switch-vpn-x",
+				Source: "main-switch",
+				Target: "vpn-x",
+			},
+			{
+				ID:     "vpn-x-server-1",
+				Source: "vpn-x",
+				Target: "server-1",
+			},
+		},
+		Description: graphDescription,
 	},
+}
+
+var graphDescription = model.GraphDescription{
+	Name: "System",
+	Text: "This is a graph view of the system",
 }
