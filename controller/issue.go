@@ -3,11 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"errors"
-	"strconv"
-	"sync/atomic"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/tizianocitro/csa-server/model"
+	"github.com/tizianocitro/csa-server/util"
 )
 
 func GetIssues(c *fiber.Ctx) error {
@@ -37,12 +37,19 @@ func SaveIssue(c *fiber.Ctx) error {
 	var issue model.Issue
 	err := json.Unmarshal(c.Body(), &issue)
 	if err != nil {
+		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"error": "Not a valid issue provided",
 		})
 	}
-	id := getNextIssueID()
-	issue.ID = strconv.Itoa(id)
+	exists := exists(issue.Name)
+	if exists {
+		c.Status(fiber.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"error": fmt.Sprintf("Issues with name %s already exists", issue.Name),
+		})
+	}
+	issue.ID = util.GenerateUUID()
 	issues = append(issues, issue)
 	return c.JSON(fiber.Map{
 		"id":   issue.ID,
@@ -59,13 +66,14 @@ func getIssueByID(id string) (model.Issue, error) {
 	return model.Issue{}, errors.New("not found")
 }
 
-func getNextIssueID() int {
-	id := atomic.LoadInt32(&nextIssueID)
-	atomic.AddInt32(&nextIssueID, 1)
-	return int(id)
+func exists(name string) bool {
+	for _, issue := range issues {
+		if issue.Name == name {
+			return true
+		}
+	}
+	return false
 }
-
-var nextIssueID int32 = 0
 
 var issues = []model.Issue{}
 
