@@ -1,11 +1,8 @@
 package controller
 
 import (
-	"fmt"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/tizianocitro/csa-server/model"
-	"github.com/tizianocitro/csa-server/util"
 )
 
 func GetPolicies(c *fiber.Ctx) error {
@@ -28,45 +25,14 @@ func GetPolicy(c *fiber.Ctx) error {
 	return c.JSON(getPolicyByID(c))
 }
 
-func GetPolicyGraph(c *fiber.Ctx) error {
-	return GetGraph(c)
+func GetPolicyDos(c *fiber.Ctx) error {
+	policyId := c.Params("policyId")
+	return c.JSON(fiber.Map{"items": policiesDosMap[policyId]})
 }
 
-func GetPolicyTable(c *fiber.Ctx) error {
-	policy := getPolicyByID(c)
-	policyTableData := model.TableData{
-		Caption: policiesTableData.Caption,
-		Headers: policiesTableData.Headers,
-		Rows:    []model.TableRow{},
-	}
-	for i := 0; i < 3; i++ {
-		name, err := util.BuildStringFromTemplate(
-			"policiesTableValuesName",
-			model.TableValueNameTemplate,
-			model.TableValuePlaceholder{Name: policy.Name, Index: i + 1})
-		if err != nil {
-			return c.JSON(model.Policy{})
-		}
-		policyTableData.Rows = append(policyTableData.Rows, model.TableRow{
-			ID:   policiesTableDataIds[i],
-			Name: name,
-			Values: []model.TableValue{
-				{
-					Dim:   4,
-					Value: name,
-				},
-				{
-					Dim:   8,
-					Value: fmt.Sprintf("This the description for the %s", name),
-				},
-			},
-		})
-	}
-	return c.JSON(policyTableData)
-}
-
-func GetPolicyTextBox(c *fiber.Ctx) error {
-	return c.JSON(fiber.Map{"text": getPolicyByID(c).Description})
+func GetPolicyDonts(c *fiber.Ctx) error {
+	policyId := c.Params("policyId")
+	return c.JSON(fiber.Map{"items": policiesDontsMap[policyId]})
 }
 
 func getPolicyByID(c *fiber.Ctx) model.Policy {
@@ -104,11 +70,6 @@ var policiesMap = map[string][]model.Policy{
 			Name:        "Policy 1",
 			Description: "Policy 1 description",
 		},
-		{
-			ID:          "95102ca1-193d-4ea9-b4ee-9c358a0d9af7",
-			Name:        "Policy 2",
-			Description: "Policy 2 description",
-		},
 	},
 	"3": {
 		{
@@ -121,38 +82,133 @@ var policiesMap = map[string][]model.Policy{
 			Name:        "Policy II",
 			Description: "Policy II description",
 		},
+	},
+}
+
+var policiesDosMap = map[string][]model.ListData{
+	"e39edc4b-5f19-4210-a576-a8e679717a86": {
 		{
-			ID:          "2b39b9ad-0094-44a3-969b-1dc591a12a70",
-			Name:        "Policy III",
-			Description: "Policy III description",
+			ID:   "b86f19da-0bda-44c2-8be3-5396a78f273f",
+			Text: "Do 1",
 		},
 		{
-			ID:          "3025ed0f-0fd1-4c7d-9509-11e6b4cad962",
-			Name:        "Policy IV",
-			Description: "Policy IV description",
+			ID:   "cad1fd77-2bdd-44c0-8791-14819a90d9ba",
+			Text: "Do 2",
+		},
+		{
+			ID:   "00a24dd6-38c4-4ae6-8e42-6f4e2773470b",
+			Text: "Do 3",
+		},
+	},
+	"00b1ce5e-95f6-4466-952e-754efbbc4224": {
+		{
+			ID:   "772dd04c-fdae-4809-a2a2-dfc0edbc7670",
+			Text: "Do 4",
+		},
+	},
+	"454a6288-7c0c-4fc7-9ccd-97e7f293eb19": {
+		{
+			ID:   "fd63b9a3-53bb-4c1f-8ea6-a5505b4d26bc",
+			Text: "Do 5",
+		},
+		{
+			ID:   "dbeebb13-7a2e-4566-b7e8-4364ec51d118",
+			Text: "Do 6",
+		},
+	},
+	"7d33bc3d-dbd9-40a7-8274-670400aa9ba7": {
+		{
+			ID:   "fb6d2f7e-84a8-4fda-ad40-dd4b9c65b9b8",
+			Text: "Do 7",
+		},
+		{
+			ID:   "4823ebed-9e27-42f1-93da-9dad21af2780",
+			Text: "Do 8",
+		},
+		{
+			ID:   "4a941a25-3460-4fc8-98cd-1e0b1402ca4b",
+			Text: "Do 9",
+		},
+	},
+	"8b74f14d-a7cb-407b-9098-ebced0ee018b": {
+		{
+			ID:   "0be62676-2f05-46a2-8db7-78ead21ceefe",
+			Text: "Do 10",
+		},
+	},
+	"b6178e38-1cfa-4a26-bb14-ec2d57cf55e6": {
+		{
+			ID:   "3003fba0-cace-4203-b23b-989004149d49",
+			Text: "Do 11",
+		},
+		{
+			ID:   "bf5f204c-a3cf-4af6-8111-5f2b16c34bc2",
+			Text: "Do 12",
 		},
 	},
 }
 
-var policiesTableData = model.TableData{
-	Caption: "Policy Elements",
-	Headers: []model.TableHeader{
+var policiesDontsMap = map[string][]model.ListData{
+	"e39edc4b-5f19-4210-a576-a8e679717a86": {
 		{
-			Dim:  4,
-			Name: "Name",
+			ID:   "723c8d4d-a222-44fa-9de4-cb5f19371135",
+			Text: "Don't 1",
 		},
 		{
-			Dim:  8,
-			Name: "Description",
+			ID:   "216e8f2e-339c-44e0-b16c-983e6308fe6e",
+			Text: "Don't 2",
+		},
+		{
+			ID:   "845b699f-d2f5-4806-a2c2-b09e7b32036c",
+			Text: "Don't 3",
 		},
 	},
-	Rows: []model.TableRow{},
-}
-
-var policiesTableDataIds = []string{
-	"c86852fb-7c64-496c-8d5f-555d061c28eb",
-	"cd71258f-8085-4f0c-ad61-5e097317239c",
-	"8f6322d3-489f-4a0b-9790-085cdef8335a",
+	"00b1ce5e-95f6-4466-952e-754efbbc4224": {
+		{
+			ID:   "88e182c9-aff0-4356-a2e9-6b3ad98e271b",
+			Text: "Don't 4",
+		},
+	},
+	"454a6288-7c0c-4fc7-9ccd-97e7f293eb19": {
+		{
+			ID:   "0a4caeaa-fcb0-4ef3-a0d2-730462329606",
+			Text: "Don't 5",
+		},
+		{
+			ID:   "c456806f-e67c-4c07-b0ee-f47be7f461e5",
+			Text: "Don't 6",
+		},
+	},
+	"7d33bc3d-dbd9-40a7-8274-670400aa9ba7": {
+		{
+			ID:   "9611ce8e-db13-4205-bc60-56f998f41426",
+			Text: "Don't 7",
+		},
+		{
+			ID:   "821dbef5-4714-4b4b-abad-4e98b8a4d6da",
+			Text: "Don't 8",
+		},
+		{
+			ID:   "a3e72a7e-27cb-46b3-ae5c-3417a3a2afaa",
+			Text: "Don't 9",
+		},
+	},
+	"8b74f14d-a7cb-407b-9098-ebced0ee018b": {
+		{
+			ID:   "7f8eb74a-02f4-4a63-bd03-715a4dbc0caf",
+			Text: "Don't 10",
+		},
+	},
+	"b6178e38-1cfa-4a26-bb14-ec2d57cf55e6": {
+		{
+			ID:   "749bd99f-bcef-4239-a7d7-8756dfbc61e2",
+			Text: "Don't 11",
+		},
+		{
+			ID:   "791e5824-c537-46a5-b9ca-ef6753fbc1c6",
+			Text: "Don't 12",
+		},
+	},
 }
 
 var policiesPaginatedTableData = model.PaginatedTableData{
