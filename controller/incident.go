@@ -63,7 +63,7 @@ var incidentsMap = map[string][]model.Incident{
 		},
 		{
 			ID:          "be4fcd12-cb96-40f4-96a8-4eed6b61e414",
-			Name:        "Brute-force attack (4)",
+			Name:        "Brute-force attack 4",
 			Description: "In this attack, some asset (information, functionality, identity, etc.) is protected...",
 		},
 	},
@@ -82,7 +82,7 @@ var incidentsMap = map[string][]model.Incident{
 	"3": {
 		{
 			ID:          "7defe83a-acbf-4784-9bc2-eb3447a0a545",
-			Name:        "Brute-force attack (5)",
+			Name:        "Brute-force attack 5",
 			Description: "In this attack, some asset (information, functionality, identity, etc.) is protected...",
 		},
 	},
