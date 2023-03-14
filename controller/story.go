@@ -46,6 +46,7 @@ func SaveStory(c *fiber.Ctx) error {
 	}
 	story.ID = util.GenerateUUID()
 	storiesMap[organizationId] = append(storiesMap[organizationId], story)
+	storiesTimelineDataMap[story.ID] = storiesTimelineItems
 	return c.JSON(fiber.Map{
 		"id":   story.ID,
 		"name": story.Name,
