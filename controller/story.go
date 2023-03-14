@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/tizianocitro/csa-server/model"
@@ -29,45 +28,11 @@ func GetStory(c *fiber.Ctx) error {
 	return c.JSON(getStoryByID(c))
 }
 
-func GetStoryGraph(c *fiber.Ctx) error {
-	return GetGraph(c)
-}
-
-func GetStoryTable(c *fiber.Ctx) error {
-	story := getStoryByID(c)
-	storyTableData := model.TableData{
-		Caption: storiesTableData.Caption,
-		Headers: storiesTableData.Headers,
-		Rows:    []model.TableRow{},
-	}
-	for i := 0; i < 3; i++ {
-		name, err := util.BuildStringFromTemplate(
-			"storiesTableValuesName",
-			model.TableValueNameTemplate,
-			model.TableValuePlaceholder{Name: story.Name, Index: i + 1})
-		if err != nil {
-			return c.JSON(model.Policy{})
-		}
-		storyTableData.Rows = append(storyTableData.Rows, model.TableRow{
-			ID:   storiesTableDataIds[i],
-			Name: name,
-			Values: []model.TableValue{
-				{
-					Dim:   4,
-					Value: name,
-				},
-				{
-					Dim:   8,
-					Value: fmt.Sprintf("This the description for the %s", name),
-				},
-			},
-		})
-	}
-	return c.JSON(storyTableData)
-}
-
-func GetStoryTextBox(c *fiber.Ctx) error {
-	return c.JSON(fiber.Map{"text": getStoryByID(c).Description})
+func GetStoryTimeline(c *fiber.Ctx) error {
+	storyId := c.Params("storyId")
+	return c.JSON(model.TimelineData{
+		Items: storiesTimelineDataMap[storyId],
+	})
 }
 
 func SaveStory(c *fiber.Ctx) error {
@@ -110,11 +75,6 @@ var storiesMap = map[string][]model.Story{
 			Name:        "Story Y",
 			Description: "Story Y description",
 		},
-		{
-			ID:          "c8995f27-8419-43a9-bdba-c69dfdcd2853",
-			Name:        "Story Z",
-			Description: "Story Z description",
-		},
 	},
 	"2": {
 		{
@@ -122,55 +82,45 @@ var storiesMap = map[string][]model.Story{
 			Name:        "Story 1",
 			Description: "Story 1 description",
 		},
-		{
-			ID:          "d26ffddd-673e-4526-8c9f-48a5814cd314",
-			Name:        "Story 2",
-			Description: "Story 2 description",
-		},
 	},
 	"3": {
 		{
-			ID:          "2d5b607a-2204-49b1-b640-239cf586c962",
+			ID:          "d26ffddd-673e-4526-8c9f-48a5814cd314",
 			Name:        "Story I",
 			Description: "Story I description",
 		},
 		{
-			ID:          "f731ebca-1d63-4470-ab40-71a8b89d59c1",
+			ID:          "2d5b607a-2204-49b1-b640-239cf586c962",
 			Name:        "Story II",
 			Description: "Story II description",
 		},
-		{
-			ID:          "0ee9646b-8ce2-4831-b355-e1fb640cf29f",
-			Name:        "Story III",
-			Description: "Story III description",
-		},
-		{
-			ID:          "b739b350-e975-4716-be6c-388a7f1c0ff9",
-			Name:        "Story IV",
-			Description: "Story IV description",
-		},
 	},
 }
 
-var storiesTableData = model.TableData{
-	Caption: "Story Elements",
-	Headers: []model.TableHeader{
-		{
-			Dim:  4,
-			Name: "Name",
-		},
-		{
-			Dim:  8,
-			Name: "Description",
-		},
-	},
-	Rows: []model.TableRow{},
+var storiesTimelineDataMap = map[string][]model.TimelineItem{
+	"d5454bed-4e1a-4f5b-b71c-2993e157ba6f": storiesTimelineItems,
+	"6d2a4472-69ef-45e8-abce-17a12d433dce": storiesTimelineItems,
+	"d8cd62a4-eb17-4922-b773-738112a714b8": storiesTimelineItems,
+	"d26ffddd-673e-4526-8c9f-48a5814cd314": storiesTimelineItems,
+	"2d5b607a-2204-49b1-b640-239cf586c962": storiesTimelineItems,
 }
 
-var storiesTableDataIds = []string{
-	"495c21dc-9f4c-4bd9-922f-5fc5475cafb7",
-	"5214998c-a9be-4f9c-b89c-118999cc1dfe",
-	"b569dc93-2e4d-4a9a-9ce6-12a646deb808",
+var storiesTimelineItems = []model.TimelineItem{
+	{
+		ID:    "2ea54075-da38-44cf-afb9-cbe31a3d9513",
+		Label: "2023-02-25 09:12:11",
+		Text:  "An event was detected",
+	},
+	{
+		ID:    "e3484f88-482b-457a-9f74-cff900c81ce4",
+		Label: "2023-03-09 11:33:48",
+		Text:  "The event was investigated",
+	},
+	{
+		ID:    "3626ed66-4ce3-4a56-a4d9-18ad1fb80f9a",
+		Label: "2023-03-12 16:51:31",
+		Text:  "The event was reported",
+	},
 }
 
 var storiesPaginatedTableData = model.PaginatedTableData{
