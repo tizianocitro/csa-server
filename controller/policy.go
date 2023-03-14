@@ -27,12 +27,16 @@ func GetPolicy(c *fiber.Ctx) error {
 
 func GetPolicyDos(c *fiber.Ctx) error {
 	policyId := c.Params("policyId")
-	return c.JSON(fiber.Map{"items": policiesDosMap[policyId]})
+	return c.JSON(model.ListData{
+		Items: policiesDosMap[policyId],
+	})
 }
 
 func GetPolicyDonts(c *fiber.Ctx) error {
 	policyId := c.Params("policyId")
-	return c.JSON(fiber.Map{"items": policiesDontsMap[policyId]})
+	return c.JSON(model.ListData{
+		Items: policiesDontsMap[policyId],
+	})
 }
 
 func getPolicyByID(c *fiber.Ctx) model.Policy {
@@ -85,7 +89,7 @@ var policiesMap = map[string][]model.Policy{
 	},
 }
 
-var policiesDosMap = map[string][]model.ListData{
+var policiesDosMap = map[string][]model.ListItem{
 	"e39edc4b-5f19-4210-a576-a8e679717a86": {
 		{
 			ID:   "b86f19da-0bda-44c2-8be3-5396a78f273f",
@@ -140,7 +144,7 @@ var policiesDosMap = map[string][]model.ListData{
 	},
 }
 
-var policiesDontsMap = map[string][]model.ListData{
+var policiesDontsMap = map[string][]model.ListItem{
 	"e39edc4b-5f19-4210-a576-a8e679717a86": {
 		{
 			ID:   "723c8d4d-a222-44fa-9de4-cb5f19371135",
