@@ -180,6 +180,6 @@ var graphMap = map[string]model.GraphData{
 }
 
 var graphDescription = model.GraphDescription{
-	Name: "System",
-	Text: "This is a graph view of the system",
+	Name: "Description",
+	Text: "A view of the system",
 }
