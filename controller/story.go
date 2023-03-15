@@ -68,32 +68,32 @@ var storiesMap = map[string][]model.Story{
 	"1": {
 		{
 			ID:          "d5454bed-4e1a-4f5b-b71c-2993e157ba6f",
-			Name:        "Story X",
-			Description: "Story X description",
+			Name:        "The Sudden Incident",
+			Description: "An incident was detected on February 25th.",
 		},
 		{
 			ID:          "6d2a4472-69ef-45e8-abce-17a12d433dce",
-			Name:        "Story Y",
-			Description: "Story Y description",
+			Name:        "The Investigation",
+			Description: "How to conduct an investigation.",
 		},
 	},
 	"2": {
 		{
 			ID:          "d8cd62a4-eb17-4922-b773-738112a714b8",
-			Name:        "Story 1",
-			Description: "Story 1 description",
+			Name:        "The Report",
+			Description: "Planning how to share results.",
 		},
 	},
 	"3": {
 		{
 			ID:          "d26ffddd-673e-4526-8c9f-48a5814cd314",
-			Name:        "Story I",
-			Description: "Story I description",
+			Name:        "The Unexplained Incident",
+			Description: "An incident occurred on February 25th.",
 		},
 		{
 			ID:          "2d5b607a-2204-49b1-b640-239cf586c962",
-			Name:        "Story II",
-			Description: "Story II description",
+			Name:        "The Aftermath",
+			Description: "How to manage consequences of the incident.",
 		},
 	},
 }

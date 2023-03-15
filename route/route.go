@@ -93,17 +93,9 @@ func useOrganizationsStories(organizations fiber.Router) {
 		log.Printf("GET /:organizationId/stories/:storyId called")
 		return controller.GetStory(c)
 	})
-	storiesWithId.Get("/graph", func(c *fiber.Ctx) error {
-		log.Printf("GET /:organizationId/stories/:storyId/graph called")
-		return controller.GetStoryGraph(c)
-	})
-	storiesWithId.Get("/table", func(c *fiber.Ctx) error {
-		log.Printf("GET /:organizationId/stories/:storyId/table called")
-		return controller.GetStoryTable(c)
-	})
-	storiesWithId.Get("/text_box", func(c *fiber.Ctx) error {
-		log.Printf("GET /:organizationId/stories/:storyId/text_box called")
-		return controller.GetStoryTextBox(c)
+	storiesWithId.Get("/timeline", func(c *fiber.Ctx) error {
+		log.Printf("GET /:organizationId/stories/:storyId/timeline called")
+		return controller.GetStoryTimeline(c)
 	})
 }
 
