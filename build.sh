@@ -1,6 +1,15 @@
 #!/bin/bash
 
-IMAGE_NAME=tizianocitro/csa-server:latest
+VERSION=latest
+
+if [ -z "$1" ]
+  then
+    echo "Missing version, using $VERSION as default."
+  else
+    VERSION=$1
+fi
+
+IMAGE_NAME=tizianocitro/csa-server:$VERSION
 
 echo "Removing old $IMAGE_NAME image"
 docker rmi $IMAGE_NAME
