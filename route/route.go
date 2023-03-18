@@ -9,12 +9,13 @@ import (
 )
 
 func UseRoutes(app *fiber.App) {
-	useOrganizations(app)
-	useEcosystem(app)
+	csaServer := app.Group("/csa-server")
+	useOrganizations(csaServer)
+	useEcosystem(csaServer)
 }
 
-func useOrganizations(app *fiber.App) {
-	organizations := app.Group("/organizations")
+func useOrganizations(csaServer fiber.Router) {
+	organizations := csaServer.Group("/organizations")
 	organizations.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("GET /organizations called")
 		return controller.GetOrganizations(c)
@@ -99,8 +100,8 @@ func useOrganizationsStories(organizations fiber.Router) {
 	})
 }
 
-func useEcosystem(app *fiber.App) {
-	ecosystem := app.Group("/issues")
+func useEcosystem(csaServer fiber.Router) {
+	ecosystem := csaServer.Group("/issues")
 	ecosystem.Get("/", func(c *fiber.Ctx) error {
 		log.Printf("GET /issues called")
 		return controller.GetIssues(c)
