@@ -1,6 +1,6 @@
 # CSA Provider Server
 
-A server to provide data to the CSA Connect collaboration platform.
+A server to provide mock data to the CSA Connect collaboration platform.
 
 ## How to build
 
